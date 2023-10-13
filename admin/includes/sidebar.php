@@ -1,5 +1,5 @@
 
-<div class="main-wrapper">
+
 <nav class="sidebar" data-trigger="scrollbar">
     <!-- Sidebar Header -->
     <div class="sidebar-header d-none d-lg-block">
@@ -16,7 +16,7 @@
        <!-- Nav -->
        <ul class="nav">
           <li class="active">
-             <a href="index.html">
+             <a href="admin_dashboard.php">
                 <i class="icofont-pie-chart"></i>
                 <span class="link-title">Dashboard</span>
              </a>
@@ -24,12 +24,12 @@
           <li>
              <a href="#">
                 <i class="icofont-shopping-cart"></i>
-                <span class="link-title">Manage Home</span>
+                <span class="link-title">Manage User</span>
              </a>
 
              <!-- Sub Menu -->
              <ul class="nav sub-menu">
-                <li><a href="pages/ecommerce/ecommerce.html">Banner Info</a></li>
+                <li><a href="all_user.php">All User</a></li>
              </ul>
              <!-- End Sub Menu -->
           </li>

@@ -1,4 +1,4 @@
-<div class="main-content">
+
     <div class="container-fluid">
        <div class="row">
           <div class="col-xl-4 col-md-8">
@@ -759,5 +759,4 @@
           </div>
        </div>
     </div>
- </div>
- </div>
+
