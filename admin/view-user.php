@@ -47,7 +47,7 @@ if (!empty($_POST)) {
 
                             $_SESSION['success'] = "User update successful";
 
-                            header('Location: all-user.php?' . $_SESSION['success']);
+                            header('Location: all_user.php');
                         } else {
                             $_SESSION['error'] = "Ops! User update failed";
                         }

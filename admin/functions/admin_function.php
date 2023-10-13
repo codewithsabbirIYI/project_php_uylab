@@ -1,5 +1,5 @@
 <?php session_start();
-
+    ob_start();
     // config file load here 
    require_once('../config.php');
    

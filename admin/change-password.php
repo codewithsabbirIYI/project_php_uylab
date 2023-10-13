@@ -37,7 +37,7 @@ if (!empty($_POST)) {
                         $update_query = "UPDATE `users` SET `user_password` = '$user_password' WHERE `user_id` = '$id'";
                         if (mysqli_query($con, $update_query)) {
                             $_SESSION['success'] = "Password Update Successfully";
-                            header('Location: all_user.php' . $_SESSION['success']);
+                            header('Location: all_user.php?'.$_SESSION['success']);
                         } else {
                             $_SESSION['error'] =  "Opps Password Update Failed";
                         }
