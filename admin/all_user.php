@@ -85,11 +85,11 @@ get_sidebar();
 
                                                 if($data["user_image"] != ''){
                                                 ?>
-                                                <img height="40" class="img200" src="uploads/<?= $data['user_image']; ?>" alt="User"/>
+                                                <img style="width: 100px;" class="img200" src="uploads/<?= $data['user_image']; ?>" alt="User"/>
                                                 <?php
                                                 }else{
                                                 ?>
-                                                <img height="40" src="asset/img/avatar/avatar-user.png" alt="User"/>
+                                                <img style="width: 100px;" src="asset/img/avatar/avatar-user.png" alt="User"/>
                                             <?php
                                             }
 
@@ -107,8 +107,8 @@ get_sidebar();
 
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(1004px, 82px, 0px);">
-                                                    <a href="view-user.php?v=<?= $data["user_id"]; ?>">View</a>
-                                                    <a href="edit-user.php?e=<?= $data["user_id"]; ?>">Edit</a>
+                                                    <a href="view-user.php?e=<?= $data["user_id"]; ?>">View</a>
+                                                    <a href="view-user.php?e=<?= $data["user_id"]; ?>">Edit</a>
                                                     <a href="change-password.php?p=<?= $data["user_id"]; ?>">Change Password</a>
                                                     <a href="delete-user.php?d=<?= $data["user_id"]; ?>">Delete</a>
                                                 </div>
