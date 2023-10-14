@@ -36,53 +36,70 @@ if (!empty($_POST)) {
     // empty validation here 
     if (!empty($user_name)) {
         if (!empty($user_phone)) {
-            if (!empty($user_email)) {
-                if (!empty($user_username)) {
 
-                    $find_username_query = "SELECT COUNT('user_username') FROM users WHERE user_username = '$user_username'";
-                    $username_data = mysqli_query($con, $find_username_query);
+            $find_phone_query = "SELECT COUNT(*) AS total_user FROM users WHERE user_phone = '$user_phone'";
+            $phone_data = mysqli_query($con, $find_phone_query);
+            // check phone already exist 
+            if (mysqli_fetch_assoc($phone_data)['total_user'] == 0) {
 
-                    // check username already exist 
-                    if ($username_data->num_rows == 0 ) {
-                        
-                        if (!empty($_POST['user_password'])) {
+                if (!empty($user_email)) {
+                    $find_email_query = "SELECT COUNT(*) AS total_user FROM users WHERE user_email = '$user_email'";
+                    $email_data = mysqli_query($con, $find_email_query);
+                    // check email already exist 
+                    if (mysqli_fetch_assoc($email_data)['total_user'] == 0) {
 
-                            if (!empty($_POST['user_confirm_password'])) {
-                                if (!empty($user_role)) {
+                        if (!empty($user_username)) {
 
-                                    // check is password and confrirm password same 
-                                    if ($user_password === $user_confirm_password) {
+                            $find_username_query = "SELECT COUNT(*) AS total_user FROM users WHERE user_username = '$user_username'";
+                            $username_data = mysqli_query($con, $find_username_query);
 
-                                        // insert query run or data insert here 
-                                        if (mysqli_query($con, $insert)) {
-                                            move_uploaded_file($user_image['tmp_name'], 'uploads/' . $imageCustomeName);
+                            // check username already exist 
+                            if (mysqli_fetch_assoc($username_data)['total_user'] == 0) {
 
-                                            $_SESSION['success'] = "User registration successful";
+                                if (!empty($_POST['user_password'])) {
 
-                                            header('Location: all_user.php');
+                                    if (!empty($_POST['user_confirm_password'])) {
+                                        if (!empty($user_role)) {
+
+                                            // check is password and confrirm password same 
+                                            if ($user_password === $user_confirm_password) {
+
+                                                // insert query run or data insert here 
+                                                if (mysqli_query($con, $insert)) {
+                                                    move_uploaded_file($user_image['tmp_name'], 'uploads/' . $imageCustomeName);
+
+                                                    $_SESSION['success'] = "User registration successful";
+
+                                                    header('Location: all_user.php');
+                                                } else {
+                                                    $_SESSION['error'] = "Ops! User registration failed";
+                                                }
+                                            } else {
+                                                $user_confirm_password_match_error = "Password and confirm password did not match";
+                                            }
                                         } else {
-                                            $_SESSION['error'] = "Ops! User registration failed";
+                                            $user_role_error = "Please Select user Role";
                                         }
                                     } else {
-                                        $user_confirm_password_match_error = "Password and confirm password did not match";
+                                        $user_confirm_password_error = "Please enter confirm password";
                                     }
                                 } else {
-                                    $user_role_error = "Please Select user Role";
+                                    $user_password_error = "Please enter your password";
                                 }
                             } else {
-                                $user_confirm_password_error = "Please enter confirm password";
+                                $user_username_exist_error = "This Username Not Available";
                             }
                         } else {
-                            $user_password_error = "Please enter your password";
+                            $user_username_error = "Please enter your username";
                         }
                     } else {
-                        $user_username_exist_error = "This Username Not Available";
+                        $user_email_exist_error = "This email Not Available";
                     }
                 } else {
-                    $user_username_error = "Please enter your username";
+                    $user_email_error = "Please enter your email";
                 }
             } else {
-                $user_email_error = "Please enter your email";
+                $user_phone_exist_error = "This Phone Not Available";
             }
         } else {
             $user_phone_error = "Please enter your Phone";
@@ -154,6 +171,14 @@ if (!empty($_POST)) {
                                             <?php
                                             }
                                             ?>
+
+                                            <?php
+                                            if (isset($user_phone_exist_error)) {
+                                            ?>
+                                                <span class="text-danger"></span><?= $user_phone_exist_error; ?></span>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                     <!-- End Form Group -->
@@ -169,6 +194,13 @@ if (!empty($_POST)) {
                                             if (isset($user_email_error)) {
                                             ?>
                                                 <span class="text-danger"></span><?= $user_email_error; ?></span>
+                                            <?php
+                                            }
+                                            ?>
+                                            <?php
+                                            if (isset($user_email_exist_error)) {
+                                            ?>
+                                                <span class="text-danger"></span><?= $user_email_exist_error; ?></span>
                                             <?php
                                             }
                                             ?>

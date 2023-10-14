@@ -17,6 +17,14 @@
         require_once('includes/footer.php');
     }
 
+    if(isset($_SESSION['user_id'])){
+
+    }else{
+        header('Location: login.php');
+        $_SESSION['login_error'] = "Login First";
+    }
+
+
     // check id loggin id set 
     // function loggedID(){
     //     return $_SESSION['user_id'] ? true : false; 

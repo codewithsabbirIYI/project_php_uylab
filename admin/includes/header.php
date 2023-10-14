@@ -71,14 +71,14 @@
                               <div class="user-profile d-lg-flex d-xl-flex  align-items-center d-none">
                                  <!-- User Avatar -->
                                  <div class="user-avatar" style="width: 70px">
-                                    <img src="./asset/img/avatar/user.png" alt="">
+                                    <img src="uploads/<?= $_SESSION['user_image']?>" alt="">
                                  </div>
                                  <!-- End User Avatar -->
 
                                  <!-- User Info -->
                                  <div class="user-info">
-                                    <h4 class="user-name">Abrilay Khatun</h4>
-                                    <p class="user-email">abrilakh@gmail.com</p>
+                                    <h4 class="user-name"><?= $_SESSION['user_name']?></h4>
+                                    <p class="user-email"><?= $_SESSION['user_email']?></p>
                                  </div>
                                  <!-- End User Info -->
                               </div>
@@ -87,7 +87,7 @@
                               <a href="#">My Profile</a>
                               <a href="#">task</a>
                               <a href="#">Settings</a>
-                              <a href="#">Log Out</a>
+                              <a href="logout.php">Log Out</a>
                            </div>
                         </div>
                         <!-- End Main Header User -->
