@@ -75,3 +75,12 @@
     </div>
     <!-- End Sidebar Body -->
  </nav>
+
+
+ $pase_imageCustomeName='about_pase'.time().'_'.rand(10000,1000000).'.'.pathinfo($about_pase_image['name'],PATHINFO_EXTENSION);
+
+                  // pase image update query here 
+                  $update="UPDATE `about` SET `about_title`='$about_title',`about_text`='$about_text',`button_link`='$button_link',`button_text`=' $button_text', `about_home_image` = '$home_imageCustomeName', `about_pase_image` = '$pase_imageCustomeName' WHERE id ='$id'";
+
+
+                  move_uploaded_file($about_pase_image['tmp_name'],'uploads/'.$pase_imageCustomeName);
