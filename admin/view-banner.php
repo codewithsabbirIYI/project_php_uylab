@@ -62,7 +62,7 @@ get_sidebar();
                   
                   move_uploaded_file($banner_image['tmp_name'],'uploads/'.$imageCustomeName);
                 
-                  header('Location: all-banner.php');
+                  header('Location: all_banner.php');
                   $_SESSION['success'] = "Banner Insert successful";
                   
                 }else{

@@ -17,7 +17,7 @@ get_sidebar();
                     <div class="card mb-30">
                         <div class="card-body">
                             <div class="d-sm-flex justify-content-between align-items-center">
-                                <h4 class="font-20">All Banner Information</h4>
+                                <h4 class="font-20">All Counter Information</h4>
 
                                 <div class="d-flex flex-wrap">
                                     <!-- Date Picker -->
@@ -42,11 +42,11 @@ get_sidebar();
                                         </div>
                                     </div>
                                     <!-- End Dropdown Button -->
-                                    <!-- start add new banner btn  -->
+                                    <!-- start add new counter btn  -->
                                     <div class="dropdown-button mt-3 mt-sm-0">
-                                        <a href="add_banner.php" type="button" class="btn style--two orange">Add New</a>
+                                        <a href="add_counter.php" type="button" class="btn style--two orange">Add New</a>
                                     </div>
-                                    <!-- end add new banner btn  -->
+                                    <!-- end add new counter btn  -->
                                 </div>
                             </div>
                         </div>
@@ -55,47 +55,29 @@ get_sidebar();
                             <table class="text-nowrap dh-table">
                                 <thead>
                                     <tr>
-                                        <th>Banner Title</th>
-                                        <th>Baner Subtitle</th>
-                                        <th>Banner Text</th>
-                                        <th>Button Link</th>
-                                        <th>Button Text</th>
-                                        <th>Banner Image</th>
-                                        <!-- <th>Status</th> -->
-                                        <th>Actions</th>
+                                        <th>Counter Icon</th>
+                                        <th>Counter Number</th>
+                                        <th>Counter Title</th>
+                                        <th>Counter Text</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- all data find and loop here  -->
+                                    <!-- all data find and loop here  -->
                                     <?php
-                                    $sel = "SELECT * FROM banners ORDER BY banner_id ASC";
+                                    $sel = "SELECT * FROM counters ORDER BY id ASC";
                                     $Q = mysqli_query($con, $sel);
                                     while ($data = mysqli_fetch_assoc($Q)) {
                                     ?>
 
                                         <!-- table item here  -->
                                         <tr>
-                                            <td><?= $data['banner_title']; ?></td>
-                                            <td><?= $data["banner_subtitle"]; ?></td>
-                                            <td><?= $data["banner_text"]; ?></td>
-                                            <td><?= $data["button_link"]; ?></td>
-                                            <td><?= $data["button_text"]; ?></td>
-                                            <td>
-                                                <?php
+                                            <td><i class="<?= $data["counter_icon"];?> text-white"></i></td>
+                                            <td><?= $data["counter_number"]; ?> </td>
+                                            <td><?= $data["counter_title"]; ?></td>
+                                            <td><?= $data["counter_text"]; ?></td>
 
-                                                if ($data["banner_image"] != '') {
-                                                ?>
-                                                    <img style="width: 100px;" class="img200" src="uploads/<?= $data['banner_image']; ?>" alt="banner" />
-                                                <?php
-                                                } else {
-                                                ?>
-                                                    <img style="width: 100px;" src="asset/img/avatar/avatar-banner.png" alt="banner" />
-                                                <?php
-                                                }
-
-                                                ?>
-                                            </td>
-                                            <!-- <td><?= $data["status"]; ?></td> -->
                                             <td>
                                                 <!-- Dropdown Button -->
                                                 <div class="dropdown-button">
@@ -107,10 +89,10 @@ get_sidebar();
 
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(1004px, 82px, 0px);">
-                                                        <a href="view-banner.php?e=<?= $data["banner_id"]; ?>">View</a>
-                                                        <a href="view-banner.php?e=<?= $data["banner_id"]; ?>">Edit</a>
-                                                      
-                                                        <a href="delete-banner.php?d=<?= $data["banner_id"]; ?>">Delete</a>
+                                                        <a href="view-counter.php?e=<?= $data["id"]; ?>">View</a>
+                                                        <a href="view-counter.php?e=<?= $data["id"]; ?>">Edit</a>
+
+                                                        <a href="delete-counter.php?d=<?= $data["id"]; ?>">Delete</a>
                                                     </div>
                                                 </div>
                                                 <!-- End Dropdown Button -->
