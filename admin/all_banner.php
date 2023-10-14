@@ -61,7 +61,7 @@ get_sidebar();
                                         <th>Button Link</th>
                                         <th>Button Text</th>
                                         <th>Banner Image</th>
-                                        <!-- <th>Status</th> -->
+                                       
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

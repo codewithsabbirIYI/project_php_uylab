@@ -17,7 +17,7 @@ get_sidebar();
                     <div class="card mb-30">
                         <div class="card-body">
                             <div class="d-sm-flex justify-content-between align-items-center">
-                                <h4 class="font-20">All about Information</h4>
+                                <h4 class="font-20">All service Information</h4>
 
                                 <div class="d-flex flex-wrap">
                                     <!-- Date Picker -->
@@ -42,6 +42,11 @@ get_sidebar();
                                         </div>
                                     </div>
                                     <!-- End Dropdown Button -->
+                                    <!-- start add new service btn  -->
+                                    <div class="dropdown-button mt-3 mt-sm-0">
+                                        <a href="add_service.php" type="button" class="btn style--two orange">Add New</a>
+                                    </div>
+                                    <!-- end add new service btn  -->
                                 </div>
                             </div>
                         </div>
@@ -50,60 +55,48 @@ get_sidebar();
                             <table class="text-nowrap dh-table">
                                 <thead>
                                     <tr>
-                                        <th>About Title</th>
+                                        <th>Service Title</th>
+                                        <th>Service Text</th>
                                         <th>Button Link</th>
                                         <th>Button Text</th>
-                                        <th>About Home Image</th>
-                                        <th>About Page Image</th>
+                                        <th>Service Image</th>
+                                        <th>Service Icon</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- all data find and loop here  -->
                                     <?php
-                                    $sel = "SELECT * FROM about ORDER BY id ASC";
+                                    $sel = "SELECT * FROM services ORDER BY id ASC";
                                     $Q = mysqli_query($con, $sel);
                                     while ($data = mysqli_fetch_assoc($Q)) {
                                     ?>
 
                                         <!-- table item here  -->
                                         <tr>
-                                            <td><?= $data['about_title']; ?></td>
+                                            <td><?= $data['service_title']; ?></td>
+                                            <td><?= $data["service_text"]; ?></td>
                                             <td><?= $data["button_link"]; ?></td>
                                             <td><?= $data["button_text"]; ?></td>
-                                            <!-- about home img  -->
+
                                             <td>
+
                                                 <?php
 
-                                                if ($data["about_home_image"] != '') {
+                                                if ($data["service_image"] != '') {
                                                 ?>
-                                                    <img style="width: 100px;" class="img200" src="uploads/<?= $data['about_home_image']; ?>" alt="about" />
+                                                    <img height="40" class="img200" src="uploads/<?= $data['service_image']; ?>" alt="service" />
                                                 <?php
                                                 } else {
                                                 ?>
-                                                    <img style="width: 100px;" src="asset/img/avatar/avatar-about.png" alt="about" />
+                                                    <img height="40" src="images/avatar.jpg" alt="service" />
                                                 <?php
                                                 }
 
                                                 ?>
-                                            </td>
-                                                <!-- about page img  -->
-                                            <td>
-                                                <?php
 
-                                                if ($data["about_pase_image"] != '') {
-                                                ?>
-                                                    <img style="width: 100px;" class="img200" src="uploads/<?= $data['about_pase_image']; ?>" alt="about" />
-                                                <?php
-                                                } else {
-                                                ?>
-                                                    <img style="width: 100px;" src="asset/img/avatar/avatar-about.png" alt="about" />
-                                                <?php
-                                                }
-
-                                                ?>
                                             </td>
-                                           
+                                            <td><i class="<?= $data['service_icon']; ?>"></i></td>
                                             <td>
                                                 <!-- Dropdown Button -->
                                                 <div class="dropdown-button">
@@ -115,9 +108,10 @@ get_sidebar();
 
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(1004px, 82px, 0px);">
-                                                        <a href="view-about.php?e=<?= $data["id"]; ?>">View</a>
-                                                        <a href="view-about.php?e=<?= $data["id"]; ?>">Edit</a>
+                                                        <a href="view-service.php?e=<?= $data["id"]; ?>">View</a>
+                                                        <a href="view-service.php?e=<?= $data["id"]; ?>">Edit</a>
 
+                                                        <a href="delete-service.php?d=<?= $data["id"]; ?>">Delete</a>
                                                     </div>
                                                 </div>
                                                 <!-- End Dropdown Button -->
