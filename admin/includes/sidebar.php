@@ -33,6 +33,18 @@
              </ul>
              <!-- End Sub Menu -->
           </li>
+          <li>
+             <a href="#">
+                <i class="icofont-shopping-cart"></i>
+                <span class="link-title">Manage Banner</span>
+             </a>
+
+             <!-- Sub Menu -->
+             <ul class="nav sub-menu">
+                <li><a href="all_banner.php">All Banner</a></li>
+             </ul>
+             <!-- End Sub Menu -->
+          </li>
        </ul>
        <!-- End Nav -->
     </div>
