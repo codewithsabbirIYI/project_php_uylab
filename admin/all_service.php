@@ -85,7 +85,7 @@ get_sidebar();
 
                                                 if ($data["service_image"] != '') {
                                                 ?>
-                                                    <img height="40" class="img200" src="uploads/<?= $data['service_image']; ?>" alt="service" />
+                                                    <img height="40" style="width: 100px;" class="img200" src="uploads/<?= $data['service_image']; ?>" alt="service" />
                                                 <?php
                                                 } else {
                                                 ?>
