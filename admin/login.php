@@ -7,17 +7,26 @@
     if(!empty($_POST)){
 
         // find form data here 
-        $user_email = $_POST['user_email'];
+        $email_or_phone = $_POST['email_or_phone'];
         $user_password = $_POST['user_password'];
 
         // field empty check 
-        if(!empty($user_email)){
+        if(!empty($email_or_phone)){
             if(!empty($user_password)){
-
+                // convert password in md5 
                 $user_password = md5($user_password);
-                // check is user is exiest 
-                $select_query = "SELECT * FROM users WHERE user_email = '$user_email' AND user_password = '$user_password'";
 
+                // check user given email or phone number 
+                if (strpos($email_or_phone, "@")) {
+
+                    // check is user is exiest query 
+                    $select_query = "SELECT * FROM users WHERE user_email = '$email_or_phone' AND user_password = '$user_password'";
+                }else{
+                    // check is user is exiest query 
+                    $select_query = "SELECT * FROM users WHERE user_phone = '$email_or_phone' AND user_password = '$user_password'";
+                }
+
+                // check is user is exiest
                 $datas = mysqli_query($con, $select_query);
 
                 $data = mysqli_fetch_assoc($datas);
@@ -95,8 +104,8 @@
                         <form action="" method="post">
                             <!-- Form Group -->
                             <div class="form-group mb-20">
-                                <label for="email" class="mb-2 font-14 bold">Email Address</label>
-                                <input type="email" id="email" class="theme-input-style <?php if (isset($user_email_error)) echo 'is-invalid' ?>" placeholder="Email Address" name="user_email">
+                                <label for="email_or_phone" class="mb-2 font-14 bold">Email Or Phone</label>
+                                <input type="text" id="email_or_phone" class="theme-input-style <?php if (isset($user_email_error)) echo 'is-invalid' ?>" placeholder="Email Address Or Phone Number" name="email_or_phone">
 
                                 <?php
                                 if (isset($user_email_error)) {
