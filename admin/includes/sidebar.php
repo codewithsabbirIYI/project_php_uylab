@@ -82,6 +82,23 @@
              </ul>
              <!-- End Sub Menu -->
           </li>
+          <li>
+             <a href="#">
+                <i class="icofont-shopping-cart"></i>
+                <span class="link-title">Portfolio</span>
+             </a>
+
+             <!-- Sub Menu -->
+             <ul class="nav sub-menu">
+                <li><a href="all_portfolio_category.php">All Category</a></li>
+             </ul>
+             <!-- End Sub Menu -->
+             <!-- Sub Menu -->
+             <ul class="nav sub-menu">
+                <li><a href="all_portfolio_item.php">All Item</a></li>
+             </ul>
+             <!-- End Sub Menu -->
+          </li>
        </ul>
        <!-- End Nav -->
     </div>
