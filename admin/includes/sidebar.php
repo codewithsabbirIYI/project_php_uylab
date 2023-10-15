@@ -95,7 +95,7 @@
              <!-- End Sub Menu -->
              <!-- Sub Menu -->
              <ul class="nav sub-menu">
-                <li><a href="all_portfolio_item.php">All Item</a></li>
+                <li><a href="all_portfolio.php">All Item</a></li>
              </ul>
              <!-- End Sub Menu -->
           </li>

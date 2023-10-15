@@ -46,10 +46,10 @@
       <!-- Header -->
       <header class="header fixed-top d-flex align-content-center flex-wrap">
          <!-- Logo -->
-         <div class="logo">
-            <a href="index.html" class="default-logo"><img src="./asset/img/mylogo.png" alt=""></a>
+         <!-- <div class="logo">
+            <a href="index.html" class="default-logo"><img src="./asset/img/mylogo.png" alt="" style="width: 100px;"></a>
             <a href="index.html" class="mobile-logo"><img src="./asset/img/mylogo.png" alt=""></a>
-         </div>
+         </div> -->
          <!-- End Logo -->
 
          <!-- Main Header -->
