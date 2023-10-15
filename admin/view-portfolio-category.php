@@ -8,6 +8,12 @@ get_header();
 get_sidebar();
 
 
+   // find old counter data 
+   $id = $_GET['e'];
+   $sel = "SELECT * FROM portfolio_categoty WHERE id = '$id'";
+   $datas = mysqli_query($con, $sel);
+   $data = mysqli_fetch_assoc($datas);
+
 // store data in variable from form 
 if (!empty($_POST)) {
     $portfolio_categoty_name = $_POST['portfolio_categoty_name'];
@@ -15,17 +21,16 @@ if (!empty($_POST)) {
 
     // empty validation here 
     if (!empty($portfolio_categoty_name)) {
-        // insert query here 
-        $insert = "INSERT INTO portfolio_categoty (portfolio_categoty_name,portfolio_categoty_slug)
-         VALUES('$portfolio_categoty_name','$portfolio_categoty_slug')";
+        // update query here 
+        $update = "UPDATE portfolio_categoty SET portfolio_categoty_name = '$portfolio_categoty_name',portfolio_categoty_slug = '$portfolio_categoty_slug' WHERE id = '$id'";
 
-        // insert query run or data insert here 
-        if (mysqli_query($con, $insert)) {
+        // update query run or data update here 
+        if (mysqli_query($con, $update)) {
 
             header('Location: all_portfolio_category.php');
-            $_SESSION['success'] = "Portfolio Category Insert successful";
+            $_SESSION['success'] = "Portfolio Category update successful";
         } else {
-            $_SESSION['error'] = "Ops! Portfolio Category Insert failed";
+            $_SESSION['error'] = "Ops! Portfolio Category update failed";
         }
     } else {
         $portfolio_categoty_name_error = "Please input Portfolio Category Name";
@@ -66,7 +71,7 @@ if (!empty($_POST)) {
                                             <label for="portfolio_categoty_name">Category Name</label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="phone" class="form-control <?php if (isset($portfolio_categoty_name_error)) echo 'is-invalid' ?>" id="portfolio_categoty_name" name="portfolio_categoty_name" value="<?php if (isset($_POST['portfolio_categoty_name'])) echo  $_POST['portfolio_categoty_name'] ?>">
+                                            <input type="phone" class="form-control <?php if (isset($portfolio_categoty_name_error)) echo 'is-invalid' ?>" id="portfolio_categoty_name" name="portfolio_categoty_name" value = "<?= (isset($_POST['portfolio_categoty_name'])) ? $_POST['portfolio_categoty_name'] : $data['portfolio_categoty_name']?>" onkeydown="show_update_btn()">
                                             <?php
                                             if (isset($portfolio_categoty_name_error)) {
                                             ?>
@@ -99,3 +104,18 @@ if (!empty($_POST)) {
 // footer part here 
 get_footer();
 ?>
+
+<script>
+  
+
+  document.getElementById('counter_data_update_btn').style.display = "none";
+
+  function show_update_btn() {
+      document.getElementById('counter_data_update_btn').style.display = "block";
+  }
+
+  function hide_counter_data_update_btn() {
+      document.getElementById('counter_data_update_btn').style.display = "none";
+
+  }
+</script>

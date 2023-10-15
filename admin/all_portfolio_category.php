@@ -42,11 +42,23 @@ get_sidebar();
                                         </div>
                                     </div>
                                     <!-- End Dropdown Button -->
-                                    <!-- start add new category btn  -->
-                                    <div class="dropdown-button mt-3 mt-sm-0">
-                                        <a href="add_category.php" type="button" class="btn style--two orange">Add New</a>
-                                    </div>
-                                    <!-- end add new category btn  -->
+
+                                    <?php
+
+                                        $find_query = "SELECT * FROM `portfolio_categoty`;";
+                                        $item_data = mysqli_query($con, $find_query);
+                                        $item = $item_data->num_rows;
+                                        if ($item < 5) {
+                                        ?>
+                                         <!-- start add new category btn  -->
+                                            <div class="dropdown-button mt-3 mt-sm-0">
+                                                <a href="add_category.php" type="button" class="btn style--two orange">Add New</a>
+                                            </div>
+                                            <!-- end add new category btn  -->
+                                        <?php
+                                        }
+                                    ?>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -55,6 +67,7 @@ get_sidebar();
                             <table class="text-nowrap dh-table">
                                 <thead>
                                     <tr>
+                                        <th>Sl</th>
                                         <th>Category Name</th>
                                         <th>Category Slug</th>
                                         <th>Action</th>
@@ -64,15 +77,18 @@ get_sidebar();
                                     <!-- all data find and loop here  -->
                                     <!-- all data find and loop here  -->
                                     <?php
-                                    $sel = "SELECT * FROM portfolio_category ORDER BY id ASC";
+                                     $i = 0;
+                                    $sel = "SELECT * FROM portfolio_categoty ORDER BY id ASC";
                                     $Q = mysqli_query($con, $sel);
                                     while ($data = mysqli_fetch_assoc($Q)) {
+                                        $i++
                                     ?>
 
                                         <!-- table item here  -->
                                         <tr>
-                                            <td><?= $data["category_name"]; ?> </td>
-                                            <td><?= $data["category_slug"]; ?></td>
+                                            <td><?= $i; ?> </td>
+                                            <td><?= $data["portfolio_categoty_name"]; ?> </td>
+                                            <td><?= $data["portfolio_categoty_slug"]; ?></td>
 
                                             <td>
                                                 <!-- Dropdown Button -->
@@ -85,10 +101,8 @@ get_sidebar();
 
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(1004px, 82px, 0px);">
-                                                        <a href="view-category.php?e=<?= $data["id"]; ?>">View</a>
-                                                        <a href="view-category.php?e=<?= $data["id"]; ?>">Edit</a>
-
-                                                        <a href="delete-category.php?d=<?= $data["id"]; ?>">Delete</a>
+                                                        <a href="view-portfolio-category.php?e=<?= $data["id"]; ?>">View</a>
+                                                        <a href="view-portfolio-category.php?e=<?= $data["id"]; ?>">Edit</a>
                                                     </div>
                                                 </div>
                                                 <!-- End Dropdown Button -->
