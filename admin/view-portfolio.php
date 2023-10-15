@@ -1,6 +1,12 @@
 <?php
 require_once('functions/admin_function.php');
 
+// find service data here 
+$id = $_GET['e'];
+$sel = "SELECT * FROM portfolios WHERE id = '$id'";
+$datas = mysqli_query($con, $sel);
+$data = mysqli_fetch_assoc($datas);
+
 // header part here 
 get_header();
 
@@ -35,28 +41,38 @@ if (!empty($_POST)) {
                 if (!empty($portfolio_text)) {
                     if (!empty($button_link)) {
                         if (!empty($button_text)) {
-                            if (!empty($portfolio_image['name'])) {
-                                if (!empty($portfolio_category_id)) {
-                                    $imageCustomeName = 'portfolio_' . time() . '_' . rand(10000, 1000000) . '.' . pathinfo($portfolio_image['name'], PATHINFO_EXTENSION);
-                                    // insert query here 
-                                    $insert = "INSERT INTO portfolios(portfolio_name,portfolio_slug,portfolio_title,portfolio_icon,portfolio_text,button_link,button_text,portfolio_image, portfolio_category_id)
-                                     VALUES('$portfolio_name','$portfolio_slug','$portfolio_title','$portfolio_icon','$portfolio_text','$button_link','$button_text','$imageCustomeName','$portfolio_category_id')";
+                            if (!empty($portfolio_category_id)) {
+                                if (!empty($portfolio_image['name'])) {
 
-                                    // insert query run or data insert here 
-                                    if (mysqli_query($con, $insert)) {
+                                    $imageCustomeName = 'portfolio_' . time() . '_' . rand(10000, 1000000) . '.' . pathinfo($portfolio_image['name'], PATHINFO_EXTENSION);
+                                    // update query here 
+                                    $update = "UPDATE  portfolios SET portfolio_name = '$portfolio_name', portfolio_slug = '$portfolio_slug',portfolio_title = '$portfolio_title', portfolio_icon = '$portfolio_icon', portfolio_text = '$portfolio_text',button_link = '$button_link', button_text = '$button_text', portfolio_category_id = '$portfolio_category_id',portfolio_image = '$imageCustomeName' WHERE id = '$id'";
+
+                                    // update query run or data update here 
+                                    if (mysqli_query($con, $update)) {
 
                                         move_uploaded_file($portfolio_image['tmp_name'], 'uploads/' . $imageCustomeName);
 
                                         header('Location: all_portfolio.php');
-                                        $_SESSION['success'] = "portfolio Insert successful";
+                                        $_SESSION['success'] = "portfolio update successful";
                                     } else {
-                                        $_SESSION['success'] = "Ops! portfolio Insert failed";
+                                        $_SESSION['success'] = "Ops! portfolio update failed";
                                     }
+
                                 } else {
-                                    $portfolio_category_name_error = "Please Select portfolio Category";
+                                    $update = "UPDATE  portfolios SET portfolio_name = '$portfolio_name', portfolio_slug = '$portfolio_slug',portfolio_title = '$portfolio_title', portfolio_icon = '$portfolio_icon', portfolio_text = '$portfolio_text',button_link = '$button_link', button_text = '$button_text', portfolio_category_id = '$portfolio_category_id' WHERE id = '$id'";
+
+                                    // update query run or data update here 
+                                    if (mysqli_query($con, $update)) {
+                                       
+                                        header('Location: all_portfolio.php');
+                                        $_SESSION['success'] = "portfolio update successful";
+                                    } else {
+                                        $_SESSION['success'] = "Ops! portfolio update failed";
+                                    }
                                 }
                             } else {
-                                $portfolio_image_error = "Please Select portfolio Image";
+                                $portfolio_category_name_error = "Please Select portfolio Category";
                             }
                         } else {
                             $button_text_error = "Please enter Button Text";
@@ -113,7 +129,7 @@ if (!empty($_POST)) {
                                             <label for="portfolio_name">portfolio Name</label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="text" id="portfolio_name" class="form-control <?php if (isset($portfolio_name_error)) echo 'is-invalid' ?>" name="portfolio_name" value="<?php if (isset($_POST['portfolio_name'])) echo  $_POST['portfolio_name'] ?>">
+                                            <input type="text" id="portfolio_name" class="form-control <?php if (isset($portfolio_name_error)) echo 'is-invalid' ?>" name="portfolio_name" value="<?= (isset($_POST['portfolio_name'])) ? $_POST['portfolio_name'] : $data['portfolio_name'] ?>" onkeydown="show_update_btn()">
 
                                             <?php
                                             if (isset($portfolio_name_error)) {
@@ -131,7 +147,7 @@ if (!empty($_POST)) {
                                             <label for="portfolio_title">portfolio Title</label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="text" id="portfolio_title" class="form-control <?php if (isset($portfolio_title_error)) echo 'is-invalid' ?>" name="portfolio_title" value="<?php if (isset($_POST['portfolio_title'])) echo  $_POST['portfolio_title'] ?>">
+                                            <input type="text" id="portfolio_title" class="form-control <?php if (isset($portfolio_title_error)) echo 'is-invalid' ?>" name="portfolio_title" value="<?= (isset($_POST['portfolio_title'])) ? $_POST['portfolio_title'] : $data['portfolio_title'] ?>" onkeydown="show_update_btn()">
 
                                             <?php
                                             if (isset($portfolio_title_error)) {
@@ -150,7 +166,7 @@ if (!empty($_POST)) {
                                             <label for="portfolio_icon">portfolio Icon</label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="text" id="portfolio_icon" class="form-control <?php if (isset($portfolio_icon_error)) echo 'is-invalid' ?>" name="portfolio_icon" value="<?php if (isset($_POST['portfolio_icon'])) echo  $_POST['portfolio_icon'] ?>">
+                                            <input type="text" id="portfolio_icon" class="form-control <?php if (isset($portfolio_icon_error)) echo 'is-invalid' ?>" name="portfolio_icon" value="<?= (isset($_POST['portfolio_icon'])) ? $_POST['portfolio_icon'] : $data['portfolio_icon'] ?>" oninput="show_update_btn()">
 
                                             <?php
                                             if (isset($portfolio_icon_error)) {
@@ -194,7 +210,7 @@ if (!empty($_POST)) {
                                             <label for="portfolio_text">portfolio Text</label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="phone" class="form-control <?php if (isset($portfolio_text_error)) echo 'is-invalid' ?>" id="portfolio_text" name="portfolio_text" value="<?php if (isset($_POST['portfolio_text'])) echo  $_POST['portfolio_text'] ?>">
+                                            <input type="phone" class="form-control <?php if (isset($portfolio_text_error)) echo 'is-invalid' ?>" id="portfolio_text" name="portfolio_text" value="<?= (isset($_POST['portfolio_text'])) ? $_POST['portfolio_text'] : $data['portfolio_text'] ?>" onkeydown="show_update_btn()">
                                             <?php
                                             if (isset($portfolio_text_error)) {
                                             ?>
@@ -212,7 +228,7 @@ if (!empty($_POST)) {
                                             <label for="button_link">Button Link</label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="phone" class="form-control <?php if (isset($button_link_error)) echo 'is-invalid' ?>" id="button_link" name="button_link" value="<?php if (isset($_POST['button_link'])) echo  $_POST['button_link'] ?>">
+                                            <input type="phone" class="form-control <?php if (isset($button_link_error)) echo 'is-invalid' ?>" id="button_link" name="button_link" value="<?= (isset($_POST['button_link'])) ? $_POST['button_link'] : $data['button_link'] ?>" onkeydown="show_update_btn()">
                                             <?php
                                             if (isset($button_link_error)) {
                                             ?>
@@ -230,7 +246,7 @@ if (!empty($_POST)) {
                                             <label for="button_text">Button Text</label>
                                         </div>
                                         <div class="col-9">
-                                            <input type="phone" class="form-control <?php if (isset($button_text_error)) echo 'is-invalid' ?>" id="button_text" name="button_text" value="<?php if (isset($_POST['button_text'])) echo  $_POST['button_text'] ?>">
+                                            <input type="phone" class="form-control <?php if (isset($button_text_error)) echo 'is-invalid' ?>" id="button_text" name="button_text" value="<?= (isset($_POST['button_text'])) ? $_POST['button_text'] : $data['button_text'] ?>" onkeydown="show_update_btn()">
                                             <?php
                                             if (isset($button_text_error)) {
                                             ?>
@@ -238,6 +254,39 @@ if (!empty($_POST)) {
                                             <?php
                                             }
                                             ?>
+                                        </div>
+                                    </div>
+                                    <!-- End Form Group -->
+                                    <!-- Form Group -->
+                                    <div class="form-group row align-items-center">
+                                        <div class="col-3">
+                                            <label for="portfolio_category_name">Portfolio Category</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <select class="theme-input-style" id="exampleSelect1" name="portfolio_category_name" onchange="show_update_btn()">
+                                                <option value="">Select Category</option>
+
+                                                <?php
+                                                $selrq = "SELECT * FROM portfolio_categoty ORDER BY id ASC";
+                                                $selr = mysqli_query($con, $selrq);
+
+                                                while ($portfolio_category = mysqli_fetch_assoc($selr)) {
+                                                ?>
+
+                                                    <option value="<?= $portfolio_category['id'] ?>" <?= ($portfolio_category['id'] == $data['portfolio_category_id']) ? "selected" : "" ?>><?= $portfolio_category['portfolio_categoty_name'] ?></option>
+
+                                                <?php
+                                                }
+
+                                                ?>
+                                                <?php
+                                                if (isset($user_portfolio_category_name_error)) {
+                                                ?>
+                                                    <span class="text-danger"></span><?= $user_portfolio_category_name_error; ?></span>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <!-- End Form Group -->
@@ -261,39 +310,6 @@ if (!empty($_POST)) {
                                     </div>
                                     <!-- Form Group -->
 
-                                    <!-- Form Group -->
-                                    <div class="form-group row align-items-center">
-                                        <div class="col-3">
-                                            <label for="portfolio_category_name">Portfolio Category</label>
-                                        </div>
-                                        <div class="col-9">
-                                            <select class="theme-input-style" id="exampleSelect1" name="portfolio_category_name">
-                                                <option value="">Select Category</option>
-
-                                                <?php
-                                                $selrq = "SELECT * FROM portfolio_categoty ORDER BY id ASC";
-                                                $selr = mysqli_query($con, $selrq);
-
-                                                while ($portfolio_category = mysqli_fetch_assoc($selr)) {
-                                                ?>
-
-                                                    <option value="<?= $portfolio_category['id'] ?>"><?= $portfolio_category['portfolio_categoty_name'] ?></option>
-
-                                                <?php
-                                                }
-
-                                                ?>
-                                                <?php
-                                                if (isset($user_portfolio_category_name_error)) {
-                                                ?>
-                                                    <span class="text-danger"></span><?= $user_portfolio_category_name_error; ?></span>
-                                                <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- End Form Group -->
 
                                     <div class="button-group pt-1 m-auto" id="portfolio_data_update_btn">
                                         <button type="reset" class="link-btn bg-transparent mr-3 soft-pink" id="update_cancel_btn" onclick="hide_user_data_update_btn()">Cancel</button>
@@ -326,6 +342,22 @@ get_footer();
 
         $portfolio_icon.setAttribute('value', $font_class)
         document.getElementById('portfolio_data_update_btn').style.display = "block";
+
+    }
+</script>
+
+</script>
+
+
+<script>
+    document.getElementById('portfolio_data_update_btn').style.display = "none";
+
+    function show_update_btn() {
+        document.getElementById('portfolio_data_update_btn').style.display = "block";
+    }
+
+    function hide_portfolio_data_update_btn() {
+        document.getElementById('portfolio_data_update_btn').style.display = "none";
 
     }
 </script>
